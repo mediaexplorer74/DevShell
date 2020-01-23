@@ -1,0 +1,359 @@
+﻿<mah:MetroWindow
+    x:Class="DevShell.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DevShell"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=System.Diagnostics.Process"
+        mc:Ignorable="d"
+    Loaded="MetroWindow_Loaded"
+   Closed="MainWindow_OnClosed"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:wpf="clr-namespace:ConsoleControl.WPF;assembly=ConsoleControl.WPF"
+    WindowStartupLocation="CenterScreen"
+        IsMinButtonEnabled="False"
+      
+        IsMaxRestoreButtonEnabled="False"
+    ShowMaxRestoreButton="False"
+    
+    ShowMinButton="False"
+    ShowTitleBar="False"
+    
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    
+        WindowState="Normal"
+    Title="MainWindow" Height="1080" Width="1920">
+    <mah:MetroWindow.Resources>
+
+    </mah:MetroWindow.Resources>
+
+    <Grid x:Name="DesktopGrid">
+        <Grid.Resources>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="Transparent"></Setter>
+                <Setter Property="FontSize" Value="{DynamicResource SubHeader}"></Setter>
+                <Setter Property="BorderBrush" Value="Transparent"></Setter>
+                <Setter Property="BorderThickness" Value="0"></Setter>
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}"></Setter>
+                <Setter Property="FontWeight" Value="Light"></Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}"  >
+                                <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center"  />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#817373"/>
+                        <Setter Property="Opacity" Value=".8"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+        <Grid.Background>
+            <ImageBrush ImageSource="/background2.jpg"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="GridSearch"
+              Grid.Row="0"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Top"
+              Width="500"
+              Margin="1 2"
+              Height="40">
+            <Border  CornerRadius="5" Background="Black" Opacity=".1">
+
+            </Border>
+
+            <TextBox Style="{DynamicResource MahApps.Styles.TextBox.Search}"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     Margin="2"></TextBox>
+        </Grid>
+
+        <StackPanel x:Name="StackPanelTopRightActions"
+                    Grid.Row="0"
+                    HorizontalAlignment="Right"
+                    >
+            <!--Open Command Prompt-->
+            <Button x:Name="ButtonOpenCmdPrompt" VerticalAlignment="Top" HorizontalAlignment="Right"
+                Margin="5"
+               
+                Click="ButtonOpenCmdPrompt_OnClick"
+                Background="Transparent"
+                Padding="0"
+                >
+
+                <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="Console" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                Margin="2"
+                    />
+                        <TextBlock Text="Cmd" VerticalAlignment="Center"
+
+                               Margin="2"></TextBlock>
+                    </StackPanel>
+
+                    <Rectangle Fill="Black" Opacity=".1" Margin="0" ></Rectangle>
+                </Grid>
+            </Button>
+            <!--Open PowerShell-->
+            <Button x:Name="ButtonOpenPowerShell" VerticalAlignment="Top" HorizontalAlignment="Right"
+                    Margin="5"
+               
+                    Click="ButtonOpenPowerShell_OnClick"
+                    Background="Transparent"
+                    Padding="0"
+                    Foreground="Blue"
+            >
+
+                <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="Console" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                    Margin="2"
+                        />
+                        <TextBlock Text="PowerShell" VerticalAlignment="Center"
+
+                                   Margin="2"></TextBlock>
+                    </StackPanel>
+
+                    <Rectangle Fill="Black" Opacity=".1" Margin="0" ></Rectangle>
+                </Grid>
+            </Button>
+
+            <!--Open Google-->
+            <Button x:Name="ButtonOpenInternet" VerticalAlignment="Top" HorizontalAlignment="Right"
+                Margin="2"
+                
+                Click="ButtonOpenInternet_OnClick"
+                Background="Transparent"
+                Padding="0"
+                >
+                <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="Edge" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                Margin="2"
+                    />
+                        <TextBlock Text="Open Edge" VerticalAlignment="Center"
+
+                               Margin="2"></TextBlock>
+                    </StackPanel>
+
+                    <Rectangle Fill="Black" Opacity=".1" Margin="0" ></Rectangle>
+                </Grid>
+
+
+            </Button>
+            <!--Open Windows Explorer -->
+            <Button x:Name="ButtonOpenExplorer" VerticalAlignment="Top" HorizontalAlignment="Right"
+                Margin="2"
+                
+                Click="ButtonOpenExplorer_OnClick"
+                Background="Transparent"
+                Padding="0"
+               >
+                <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="Folder" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                Margin="2"
+                    />
+                        <TextBlock Text="System Shell" VerticalAlignment="Center"
+
+                               Margin="2"></TextBlock>
+                    </StackPanel>
+
+                    <Rectangle Fill="Black" Opacity=".1" Margin="0" ></Rectangle>
+                </Grid>
+            </Button>
+
+        </StackPanel>
+
+        <!--Open Task Manager -->
+
+        <!--<Button x:Name="ButtonOpenTaskManager" VerticalAlignment="Top" HorizontalAlignment="Right"
+                Margin="2"
+                Grid.Row="3"
+                Click="ButtonOpenTaskManager_OnClick"
+                Background="Transparent"
+                Padding="0"
+                Foreground="White">
+            Open Task Manager
+        </Button>-->
+
+        <Grid x:Name="GridTopLeft">
+            <wpf:ConsoleControl x:Name="ConsoleControlEmbedded"
+                                Width="600"
+                                Height="400"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Foreground="White"
+                                Padding="1"
+                                   OnProcessOutput="ConsoleControlEmbedded_OnProcessOutput"
+                                OnProcessInput="ConsoleControlEmbedded_OnProcessInput"
+                                Margin="0 200 0 0">
+                
+                
+            </wpf:ConsoleControl>
+        </Grid>
+        
+        <Grid x:Name="GridBottomPanel"
+              Grid.Row="4"
+              Margin="0">
+
+            <Grid x:Name="GridMiddleCenter"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Width="400"
+                  Height="200"
+                  >
+                <ItemsControl x:Name="ItemsControlRunningApps" ItemsSource="{Binding RunningApps}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type local:SysApp}">
+                            <Grid>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding ImageSource}"></Image>
+                                    <TextBlock Text="{Binding DisplayName}" VerticalAlignment="Center"></TextBlock>
+                                </StackPanel>
+
+                            </Grid>
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+
+            <!--Date and Time-->
+            <Grid x:Name="GridBottomRight"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom"
+                  Width="200"
+                
+                  Height="40">
+                <TextBlock Text="{Binding Time}" HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Margin="5"
+                            Foreground="White"
+                            FontWeight="Regular"
+                            FontSize="24"
+                           ></TextBlock>
+            </Grid>
+
+            <!--App Drawer-->
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                  Width="200"
+                  Margin="4">
+                <!--Open Sound Cloud-->
+                <Button x:Name="ButtonOpenAppDrawer" VerticalAlignment="Top" HorizontalAlignment="Left"
+                            
+                    
+                        Click="ButtonOpenAppDrawer_OnClick"
+                      
+                        Padding="5"
+                        HorizontalContentAlignment="Left"
+                >
+                    <Grid
+                            
+                    >
+                        <StackPanel Orientation="Vertical" Margin="0">
+                            <iconPacks:PackIconMaterial Kind="AppsBox" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                        Margin="2"
+                                                        FontSize="24"
+                                                        Height="40"
+                                                        Width="40"
+                                                        Foreground="White"
+                            />
+
+                        </StackPanel>
+
+
+                    </Grid>
+                </Button>
+            </Grid>
+            <Grid
+                x:Name="GridAppLauncher"
+                Height="70"
+               
+                           
+                Width="500"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Center">
+
+                <Border CornerRadius="5" Background="Silver" Opacity=".3">
+                
+                </Border>
+             
+                <ItemsControl x:Name="ItemsControlAppDock" ItemsSource="{Binding AllApps}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"></StackPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type local:SysApp}">
+                            <!--Open Sound Cloud-->
+                            <Button  VerticalAlignment="Center" HorizontalAlignment="Center"
+                            
+                            
+                            Click="ButtonOpenSoundCloud_OnClick"
+                           
+                            Padding="1"
+                                    
+                            VerticalContentAlignment="Center"
+                           
+                            HorizontalContentAlignment="Left"
+                                     Margin="5 0"
+                          
+                    >
+                                <Grid
+                            
+                            >
+                                    <StackPanel Orientation="Vertical" Margin="0">
+                                        <!--<iconPacks:PackIconMaterial Kind="Soundcloud" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                            Margin="2"
+                                                            Foreground="OrangeRed"
+                                />-->
+                                        <Image Source="{Binding ImageSource}"  VerticalAlignment="Center"
+                                               Height="36" Width="36"></Image>
+                                        <!--<TextBlock Text="{Binding DisplayName}" VerticalAlignment="Center"
+                                Foreground="White"
+                                
+                                FontSize="11"
+                                TextAlignment="Center"
+                                TextWrapping="Wrap"
+                                                   TextTrimming="CharacterEllipsis"
+                                Width="60"
+                                FontWeight="Regular"
+                                           Margin="0 2 0 0"></TextBlock>-->
+                                    </StackPanel>
+
+                                    <Rectangle Fill="White" Opacity="0" Margin="0" ></Rectangle>
+                                </Grid>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                
+           
+
+                   
+             
+            </Grid>
+        </Grid>
+    </Grid>
+
+
+</mah:MetroWindow>
