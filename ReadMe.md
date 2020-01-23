@@ -2,7 +2,7 @@
 
 DevShell is an open source custom shell for windows written in C#. **This project is in the early stages so documentation will be lacking in many areas.** 
 
-![Example Desktop](C:\Users\Darin_000\source\repos\DevShell\docs\ExampleDesktop.png)
+![Example Desktop](docs/ExampleDesktop.png)
 
 The Core library is a .NET Standard 2.0 library so in theory it could be using on other platforms. However, the current implementation (source of the screenshot above) is written in WPF for .NET Core. I'm not familiar with setting the Shell in Linux or on Mac OS but if someone wants to create a pull request feel free. This also goes for Android, I would assume a custom launcher can't be set for IOS but I could be wrong. 
 
